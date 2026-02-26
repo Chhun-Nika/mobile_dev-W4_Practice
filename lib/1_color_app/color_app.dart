@@ -150,12 +150,17 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Statistics')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var type in CardType.values)
-              Text("${type.label} counts = ${colorService._counts[type]}"),
-          ],
+        child: ListenableBuilder(
+          listenable: colorService,
+          builder: (context, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var type in CardType.values)
+                  Text("${type.label} counts = ${colorService._counts[type]}"),
+              ],
+            );
+          },
         ),
       ),
     );
